@@ -7,7 +7,6 @@ import org.botiplz.util.string.firstAndLast
 
 class Day01 : AbstractDay() {
     override fun test(lines: List<String>) {
-
         part2(lines)
     }
 
@@ -17,8 +16,6 @@ class Day01 : AbstractDay() {
 
     override fun part2(lines: List<String>) {
         println(lines.map { it.firstDigit() * 10 + it.lastDigit() }.sum())
-
-
     }
 
 

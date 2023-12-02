@@ -1,6 +1,5 @@
 package org.botiplz.util.geo
 
-
 class LongPoint(val x: Long, val y: Long) {
 
     fun up(): LongPoint {
