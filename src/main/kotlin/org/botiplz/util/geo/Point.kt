@@ -10,8 +10,24 @@ class Point(val x: Int, val y: Int) {
         return Point(x, y + 1)
     }
 
+    fun upLeft(): Point {
+        return Point(x - 1, y + 1)
+    }
+
+    fun upRight(): Point {
+        return Point(x + 1, y + 1)
+    }
+
     fun down(): Point {
         return Point(x, y - 1)
+    }
+
+    fun downLeft(): Point {
+        return Point(x - 1, y - 1)
+    }
+
+    fun downRight(): Point {
+        return Point(x + 1, y - 1)
     }
 
     fun left(): Point {
@@ -24,6 +40,10 @@ class Point(val x: Int, val y: Int) {
 
     fun pointsAround(): List<Point> {
         return listOf(up(), down(), left(), right());
+    }
+
+    fun pointsAroundDiagonally(): List<Point> {
+        return listOf(upLeft(), up(), upRight(), downLeft(), down(), downRight(), left(), right());
     }
 
     operator fun minus(prevPoint: Point): Point {
