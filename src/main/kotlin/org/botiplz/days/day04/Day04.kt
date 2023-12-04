@@ -1,13 +1,10 @@
 package org.botiplz.days.day04
 
 import org.botiplz.days.AbstractDay
-import org.botiplz.util.geo.Point
-import org.botiplz.util.list.charsAround
-import org.botiplz.util.list.indicesAround
 import org.botiplz.util.numbers.pow
-import org.botiplz.util.stream.multiply
 
 class Day04 : AbstractDay() {
+
     override fun test(lines: List<String>) {
         part2(lines)
     }
@@ -33,11 +30,10 @@ class Day04 : AbstractDay() {
                 .reduce { a, b -> a.intersect(b).toList() }.size
 
             for (win in 1..Math.min(wins, lines.lastIndex - card)) {
-                instances[card + win] =  instances[card + win]!! + instances[card]!!
+                instances[card + win] = instances[card + win]!! + instances[card]!!
             }
         }
         println(instances.values.sum())
     }
-
 
 }
