@@ -9,6 +9,7 @@ import org.botiplz.util.stream.multiply
 class Day03 : AbstractDay() {
     override fun test(lines: List<String>) {
         part1(lines)
+        println()
     }
 
     override fun part1(lines: List<String>) {
@@ -59,6 +60,7 @@ class Day03 : AbstractDay() {
         }
         println(parts.sum())
 
+        println()
     }
 
     override fun part2(lines: List<String>) {

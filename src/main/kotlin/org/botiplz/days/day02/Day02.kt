@@ -1,14 +1,11 @@
 package org.botiplz.days.day02
 
 import org.botiplz.days.AbstractDay
-import org.botiplz.util.numbers.firstDigit
-import org.botiplz.util.numbers.lastDigit
 import org.botiplz.util.stream.multiply
-import org.botiplz.util.string.firstAndLast
 
 class Day02 : AbstractDay() {
     override fun test(lines: List<String>) {
-      part2(lines)
+        part2(lines)
     }
 
     override fun part1(lines: List<String>) {
@@ -42,12 +39,12 @@ class Day02 : AbstractDay() {
             return bags.none { it.keys.any { key -> it[key]!! > bag[key]!! } }
         }
 
-        fun getPower():Int{
+        fun getPower(): Int {
             val minBag: HashMap<String, Int> = hashMapOf();
-            bags.forEach {bag->
-                bag.keys.forEach {key->
-                    minBag.putIfAbsent(key,bag[key]!!)
-                    if(bag[key]!!>minBag[key]!!){
+            bags.forEach { bag ->
+                bag.keys.forEach { key ->
+                    minBag.putIfAbsent(key, bag[key]!!)
+                    if (bag[key]!! > minBag[key]!!) {
                         minBag[key] = bag[key]!!
                     }
                 }
