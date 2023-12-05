@@ -15,6 +15,7 @@ abstract class AbstractDay {
         val part2Lines =
             loadLines(Path.of(this::class.java.getResource(part2FileName())?.toURI() ?: URI(part2FileName())))
         println("");
+
         val startnanos = nanoTime();
         test(testLines);
         val testnanos = nanoTime();
