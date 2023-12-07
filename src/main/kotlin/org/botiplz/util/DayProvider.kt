@@ -7,6 +7,7 @@ import org.botiplz.days.day03.Day03
 import org.botiplz.days.day02.Day02
 import org.botiplz.days.day04.Day04
 import org.botiplz.days.day05.Day05
+import org.botiplz.days.day07.Day07
 
 
 fun getDay(day: Int): AbstractDay {
@@ -17,6 +18,7 @@ fun getDay(day: Int): AbstractDay {
         4 -> Day04()
         5 -> Day05()
         6 -> Day06()
+        7 -> Day07()
         else -> Day01()
     }
 }
