@@ -7,27 +7,27 @@ import kotlin.math.sign
 class Point(val x: Int, val y: Int) {
 
     fun up(): Point {
-        return Point(x, y + 1)
-    }
-
-    fun upLeft(): Point {
-        return Point(x - 1, y + 1)
-    }
-
-    fun upRight(): Point {
-        return Point(x + 1, y + 1)
-    }
-
-    fun down(): Point {
         return Point(x, y - 1)
     }
 
-    fun downLeft(): Point {
+    fun upLeft(): Point {
         return Point(x - 1, y - 1)
     }
 
-    fun downRight(): Point {
+    fun upRight(): Point {
         return Point(x + 1, y - 1)
+    }
+
+    fun down(): Point {
+        return Point(x, y + 1)
+    }
+
+    fun downLeft(): Point {
+        return Point(x - 1, y + 1)
+    }
+
+    fun downRight(): Point {
+        return Point(x + 1, y + 1)
     }
 
     fun left(): Point {
@@ -87,14 +87,6 @@ class Point(val x: Int, val y: Int) {
     }
 
     companion object {
-        fun topLeft(vararg sensor: Point): Point {
-            return Point(sensor.map { it.x }.min(), sensor.map { it.y }.min())
-        }
-
-        fun bottomRight(vararg sensor: Point): Point {
-            return Point(sensor.map { it.x }.max(), sensor.map { it.y }.max())
-        }
-
         fun forPointsInRange(point1: Point, point2: Point, consumer: Consumer<Point>) {
             var analysePoint = point1
             while (analysePoint != point2) {
