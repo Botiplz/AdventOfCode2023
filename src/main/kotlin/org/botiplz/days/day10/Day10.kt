@@ -67,13 +67,11 @@ class Day10 : AbstractDay() {
             var currentPoint = emptyPoint
             while (currentPoint.x >= 0) {
                 val inMainLoop =distances[currentPoint]!! != Int.MAX_VALUE
-
                 if ( connectedPoints[currentPoint]!!.contains(currentPoint.up())) {
                     if (!parsedUp)
                         parsedUp = true
                     else
                         parsedUp = false
-
                 }
                 if (connectedPoints[currentPoint]!!.contains(currentPoint.down())) {
                     if (!parsedDown)
@@ -92,7 +90,6 @@ class Day10 : AbstractDay() {
                 }
                 currentPoint = currentPoint.left()
             }
-
             if (crossings % 2 == 1) {
                 markedPoints.add(emptyPoint)
             }
