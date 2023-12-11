@@ -19,7 +19,7 @@ class LongPoint(val x: Long, val y: Long) {
     }
 
     fun pointsAround(): List<LongPoint> {
-        return listOf(up(), down(), left(), right());
+        return listOf(up(), down(), left(), right())
     }
 
     operator fun minus(prevPoint: LongPoint): LongPoint {
@@ -55,11 +55,11 @@ class LongPoint(val x: Long, val y: Long) {
 
     companion object {
         fun topLeft(vararg sensor: LongPoint): LongPoint {
-            return LongPoint(sensor.map { it.x }.min(), sensor.map { it.y }.min())
+            return LongPoint(sensor.minOfOrNull { it.x }!!, sensor.minOfOrNull { it.y }!!)
         }
 
         fun bottomRight(vararg sensor: LongPoint): LongPoint {
-            return LongPoint(sensor.map { it.x }.max(), sensor.map { it.y }.max())
+            return LongPoint(sensor.maxOfOrNull { it.x }!!, sensor.maxOfOrNull { it.y }!!)
         }
 
     }

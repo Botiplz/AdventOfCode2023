@@ -1,6 +1,5 @@
 package org.botiplz.util.numbers
 
-import kotlin.math.min
 import kotlin.math.pow
 
 fun Int.pow(power: Int): Int {

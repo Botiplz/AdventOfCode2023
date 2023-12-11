@@ -1,6 +1,7 @@
 package org.botiplz.util.geo
 
 import java.util.function.Consumer
+import kotlin.math.abs
 import kotlin.math.sign
 
 
@@ -39,11 +40,11 @@ class Point(val x: Int, val y: Int) {
     }
 
     fun pointsAround(): List<Point> {
-        return listOf(up(), down(), left(), right());
+        return listOf(up(), down(), left(), right())
     }
 
     fun pointsAroundDiagonally(): List<Point> {
-        return listOf(upLeft(), up(), upRight(), downLeft(), down(), downRight(), left(), right());
+        return listOf(upLeft(), up(), upRight(), downLeft(), down(), downRight(), left(), right())
     }
 
     operator fun minus(prevPoint: Point): Point {
@@ -56,11 +57,11 @@ class Point(val x: Int, val y: Int) {
 
     fun manhattanDistance(other: Point): Int {
         val distance = this - other
-        return Math.abs(distance.x) + Math.abs(distance.y);
+        return abs(distance.x) + abs(distance.y)
     }
 
     fun direction(): Point {
-        return Point(x.sign, y.sign);
+        return Point(x.sign, y.sign)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -91,7 +92,7 @@ class Point(val x: Int, val y: Int) {
             var analysePoint = point1
             while (analysePoint != point2) {
                 consumer.accept(analysePoint)
-                analysePoint = analysePoint + (point2 - analysePoint).direction()
+                analysePoint += (point2 - analysePoint).direction()
             }
             consumer.accept(analysePoint)
         }

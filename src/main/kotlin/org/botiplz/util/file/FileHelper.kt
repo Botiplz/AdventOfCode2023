@@ -4,6 +4,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 fun loadLines(path: Path): List<String> {
-    return Files.readAllLines(path);
+    return Files.readAllLines(path)
 }
 
