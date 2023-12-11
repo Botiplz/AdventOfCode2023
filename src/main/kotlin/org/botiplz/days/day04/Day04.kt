@@ -10,12 +10,12 @@ class Day04 : AbstractDay() {
     }
 
     override fun part1(lines: List<String>) {
-        println(lines.map { line ->
+        println(lines.sumOf { line ->
             2.pow(line.split(":").last().split("|")
                 .map { group -> group.split(" ").filter(String::isNotEmpty).map(String::toInt) }
-                .reduce { a, b -> a.intersect(b).toList() }.size - 1
+                .reduce { a, b -> a.intersect(b.toSet()).toList() }.size - 1
             )
-        }.sum())
+        })
     }
 
     override fun part2(lines: List<String>) {
@@ -27,9 +27,9 @@ class Day04 : AbstractDay() {
             val line = lines[card]
             val wins = line.split(":").last().split("|")
                 .map { group -> group.split(" ").filter(String::isNotEmpty).map(String::toInt) }
-                .reduce { a, b -> a.intersect(b).toList() }.size
+                .reduce { a, b -> a.intersect(b.toSet()).toList() }.size
 
-            for (win in 1..Math.min(wins, lines.lastIndex - card)) {
+            for (win in 1..wins.coerceAtMost(lines.lastIndex - card)) {
                 instances[card + win] = instances[card + win]!! + instances[card]!!
             }
         }

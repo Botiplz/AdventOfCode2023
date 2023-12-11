@@ -17,7 +17,7 @@ class Day05 : AbstractDay() {
         //parse
         val allMaps = parseMappings(lines)
 
-        println(seeds.map { mapSingleSeed(it, allMaps) }.min())
+        println(seeds.minOfOrNull { mapSingleSeed(it, allMaps) })
     }
 
     override fun part2(lines: List<String>) {
@@ -29,30 +29,30 @@ class Day05 : AbstractDay() {
         }
 
         val allMaps = parseMappings(lines)
-        println(seeds.map { mapSeedrange(it, allMaps).map { it.first }.min() }.min())
+        println(seeds.minOfOrNull { mapSeedrange(it, allMaps).minOfOrNull { seedRange -> seedRange.first }!! })
     }
 
-    fun mapSingleSeed(seed: Long, maps: List<Mapping>): Long {
-        var endSeed = seed;
+    private fun mapSingleSeed(seed: Long, maps: List<Mapping>): Long {
+        var endSeed = seed
         for (map in maps) {
-            val seedbefore = endSeed;
+            val seedbefore = endSeed
             val seedAfter = map.mapValue(seedbefore)
             endSeed = seedAfter
         }
-        return endSeed;
+        return endSeed
     }
 
-    fun mapSeedrange(seedRange: LongRange, maps: List<Mapping>): List<LongRange> {
-        var endSeed = listOf(seedRange);
+    private fun mapSeedrange(seedRange: LongRange, maps: List<Mapping>): List<LongRange> {
+        var endSeed = listOf(seedRange)
         for (map in maps) {
-            val seedbefore = endSeed;
+            val seedbefore = endSeed
             val seedAfter = map.mapRanges(seedbefore)
             endSeed = seedAfter
         }
-        return endSeed;
+        return endSeed
     }
 
-    fun parseMappings(lines: List<String>): ArrayList<Mapping> {
+    private fun parseMappings(lines: List<String>): ArrayList<Mapping> {
         val allMaps = arrayListOf<Mapping>()
         var currentMap = Mapping()
         for (line in lines) {
@@ -84,7 +84,7 @@ class Day05 : AbstractDay() {
          * Just maps the value
          */
         fun mapValue(value: Long): Long {
-            return mappings.filter { it.hasValue(value) }.map { it.mapValue(value) }.firstOrNull() ?: value;
+            return mappings.filter { it.hasValue(value) }.map { it.mapValue(value) }.firstOrNull() ?: value
         }
 
         /***
@@ -106,7 +106,7 @@ class Day05 : AbstractDay() {
                     //add non intersecting parts for future checks
                     toAdd.addAll(oldRange.splitByOther(mappingLine.sourceRange))
                 }
-                uncheckedRanges.removeAll(toRemove)
+                uncheckedRanges.removeAll(toRemove.toSet())
                 uncheckedRanges.addAll(toAdd)
 
             }
@@ -117,13 +117,11 @@ class Day05 : AbstractDay() {
 
     }
 
-    class MappingLine(val destination: Long, val source: Long, val range: Long) {
-
+    class MappingLine(private val destination: Long, val source: Long, range: Long) {
         val sourceRange = source..<source + range
 
-
         fun hasValue(value: Long): Boolean {
-            return sourceRange.contains(value);
+            return sourceRange.contains(value)
         }
 
         /***

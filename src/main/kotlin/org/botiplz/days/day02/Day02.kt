@@ -12,21 +12,21 @@ class Day02 : AbstractDay() {
         val totalBag = mapOf("red" to 12, "green" to 13, "blue" to 14)
         val games = lines.map { parseGame(it) }
         val validgames = games.filter { it.isPossible(totalBag) }
-        println(validgames.map { it.id }.sum())
+        println(validgames.sumOf { it.id })
     }
 
     override fun part2(lines: List<String>) {
         val games = lines.map { parseGame(it) }
-        println(games.map { it.getPower() }.sum())
+        println(games.sumOf { it.getPower() })
     }
 
 
-    fun parseGame(line: String): Game {
+    private fun parseGame(line: String): Game {
         val id = line.split(':').first().split(' ').last().toInt()
         val bags = line.split(':').last().split(';').map {
-            val bag: HashMap<String, Int> = hashMapOf();
-            it.split(',').forEach {
-                val split = it.trim().split(' ')
+            val bag: HashMap<String, Int> = hashMapOf()
+            it.split(',').forEach { gameString ->
+                val split = gameString.trim().split(' ')
                 bag[split.last().trim()] = split.first().trim().toInt()
             }
             bag
@@ -40,7 +40,7 @@ class Day02 : AbstractDay() {
         }
 
         fun getPower(): Int {
-            val minBag: HashMap<String, Int> = hashMapOf();
+            val minBag: HashMap<String, Int> = hashMapOf()
             bags.forEach { bag ->
                 bag.keys.forEach { key ->
                     minBag.putIfAbsent(key, bag[key]!!)

@@ -1,9 +1,6 @@
 package org.botiplz.days.day07
 
 import org.botiplz.days.AbstractDay
-import org.botiplz.util.stream.multiply
-import kotlin.math.sign
-import org.botiplz.days.day07.Day07.Bid as Bid
 
 class Day07 : AbstractDay() {
     override fun test(lines: List<String>) {
@@ -18,16 +15,16 @@ class Day07 : AbstractDay() {
         play(lines, 2)
     }
 
-    fun play(lines: List<String>, part: Int) {
+    private fun play(lines: List<String>, part: Int) {
         val bids = lines.map { line -> Bid(line, part) }
         println(bids.sorted().mapIndexed { index, bid -> (index + 1) * bid.bid }.sum())
     }
 
-    class Bid(line: String, val part: Int = 1) : Comparable<Bid> {
+    class Bid(line: String, private val part: Int = 1) : Comparable<Bid> {
 
-        val hand: String
+        private val hand: String
         val bid: Int
-        val handWithType: String
+        private val handWithType: String
 
         init {
             val split = line.split(' ')
@@ -69,14 +66,13 @@ class Day07 : AbstractDay() {
                 return '5'
             }
             //Pair
-            else if (cardMap.values.any() { it == 2 }) {
+            else if (cardMap.values.any { it == 2 }) {
                 return '4'
             }
             //Single
             else {
                 return '3'
             }
-            return '2'
         }
 
 

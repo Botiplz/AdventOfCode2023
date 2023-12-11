@@ -2,21 +2,15 @@ package org.botiplz.days.day10
 
 import org.botiplz.days.AbstractDay
 import org.botiplz.util.geo.Point
-import org.botiplz.util.geo.Point3D
 import org.botiplz.util.list.charAtPoint
 import org.botiplz.util.list.containsPoint
-import org.botiplz.util.map.removeIf
-import org.botiplz.util.numbers.firstDigit
-import org.botiplz.util.numbers.lastDigit
-import org.botiplz.util.string.firstAndLast
-import kotlin.math.min
 
 class Day10 : AbstractDay() {
 
-    val south = "|7FS"
-    val north = "|LJS"
-    val west = "-7JS"
-    val east = "-LFS"
+    private val south = "|7FS"
+    private val north = "|LJS"
+    private val west = "-7JS"
+    private val east = "-LFS"
 
 
     override fun test(lines: List<String>) {
@@ -25,13 +19,12 @@ class Day10 : AbstractDay() {
 
     override fun part1(lines: List<String>) {
         val connectedPoints = hashMapOf<Point, HashSet<Point>>()
-        var startPoint = parse(lines, connectedPoints)
-        val distances = distances(startPoint,connectedPoints)
+        val startPoint = parse(lines, connectedPoints)
+        val distances = distances(startPoint, connectedPoints)
         println(distances.values.filter { it != Int.MAX_VALUE }.max())
     }
 
-    fun distances(startPoint:Point,connectedPoints: HashMap<Point, HashSet<Point>>):HashMap<Point,Int>
-    {
+    private fun distances(startPoint: Point, connectedPoints: HashMap<Point, HashSet<Point>>): HashMap<Point, Int> {
         val pointsToCheck = hashSetOf(startPoint)
 
         val distances = hashMapOf<Point, Int>()
@@ -54,30 +47,24 @@ class Day10 : AbstractDay() {
 
     override fun part2(lines: List<String>) {
         val connectedPoints = hashMapOf<Point, HashSet<Point>>()
-        var startPoint = parse(lines, connectedPoints)
+        val startPoint = parse(lines, connectedPoints)
 
         val markedPoints = hashSetOf<Point>()
-        val distances = distances(startPoint,connectedPoints)
+        val distances = distances(startPoint, connectedPoints)
 
         connectedPoints.filter { distances[it.key]!! == Int.MAX_VALUE }.forEach { empty ->
             var parsedUp = false
             var parsedDown = false
             var crossings = 0
-            val emptyPoint = empty.key;
+            val emptyPoint = empty.key
             var currentPoint = emptyPoint
             while (currentPoint.x >= 0) {
-                val inMainLoop =distances[currentPoint]!! != Int.MAX_VALUE
-                if ( connectedPoints[currentPoint]!!.contains(currentPoint.up())) {
-                    if (!parsedUp)
-                        parsedUp = true
-                    else
-                        parsedUp = false
+                val inMainLoop = distances[currentPoint]!! != Int.MAX_VALUE
+                if (connectedPoints[currentPoint]!!.contains(currentPoint.up())) {
+                    parsedUp = !parsedUp
                 }
                 if (connectedPoints[currentPoint]!!.contains(currentPoint.down())) {
-                    if (!parsedDown)
-                        parsedDown = true
-                    else
-                        parsedDown = false
+                    parsedDown = !parsedDown
                 }
                 if (connectedPoints[currentPoint]!!.isEmpty() || !inMainLoop) {
                     parsedUp = false
@@ -103,7 +90,7 @@ class Day10 : AbstractDay() {
     }
 
 
-    fun parse(lines: List<String>, connectedPoints: HashMap<Point, HashSet<Point>>): Point {
+    private fun parse(lines: List<String>, connectedPoints: HashMap<Point, HashSet<Point>>): Point {
 
         var startPoint = Point(0, 0)
 
@@ -122,13 +109,13 @@ class Day10 : AbstractDay() {
                 if (lines.containsPoint(up) && south.contains(lines.charAtPoint(up)) && north.contains(c)) {
                     connectedPointSet.add(up)
                 }
-                if (lines.containsPoint(down) && north.contains(lines.charAtPoint(down))&& south.contains(c)) {
+                if (lines.containsPoint(down) && north.contains(lines.charAtPoint(down)) && south.contains(c)) {
                     connectedPointSet.add(down)
                 }
-                if (lines.containsPoint(left) && east.contains(lines.charAtPoint(left))&& west.contains(c)) {
+                if (lines.containsPoint(left) && east.contains(lines.charAtPoint(left)) && west.contains(c)) {
                     connectedPointSet.add(left)
                 }
-                if (lines.containsPoint(right) && west.contains(lines.charAtPoint(right))&& east.contains(c)) {
+                if (lines.containsPoint(right) && west.contains(lines.charAtPoint(right)) && east.contains(c)) {
                     connectedPointSet.add(right)
                 }
                 connectedPoints[point] = connectedPointSet
