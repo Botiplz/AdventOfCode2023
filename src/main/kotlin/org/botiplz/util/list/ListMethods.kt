@@ -16,3 +16,13 @@ fun List<String>.containsPoint(it: Point) = it.y in 0..lastIndex && it.x in 0..t
 fun List<String>.charsAround(point: Set<Point>) = indicesAround(point).map { this[it.y][it.x] }
 
 fun List<String>.charAtPoint(it: Point) = this[it.y][it.x]
+
+fun List<String>.forEachChar(func: (x: Int, y: Int, line: String, c: Char) -> Unit) {
+    this.forEachIndexed { y, line ->
+        line.forEachIndexed { x, c ->
+            func.invoke(x, y, line, c)
+        }
+
+    }
+
+}
