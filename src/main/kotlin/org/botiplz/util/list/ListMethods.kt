@@ -24,5 +24,32 @@ fun List<String>.forEachChar(func: (x: Int, y: Int, line: String, c: Char) -> Un
         }
 
     }
+}
 
+fun List<String>.split(separator: String): List<List<String>> {
+    val lists = arrayListOf<List<String>>()
+
+    var currentList = arrayListOf<String>()
+
+    for (line in this) {
+        if (line == separator) {
+            lists.add(currentList)
+            currentList = arrayListOf()
+        } else
+            currentList.add(line)
+    }
+
+    lists.add(currentList)
+    return lists
+}
+
+fun List<String>.transpose(): List<String> {
+    val transposedList = ArrayList<String>()
+    first().forEach { _ -> transposedList.add("") }
+    forEachIndexed { _, line ->
+        line.forEachIndexed { x, c ->
+            transposedList[x] = transposedList[x] + c
+        }
+    }
+    return transposedList
 }
