@@ -25,7 +25,6 @@ fun List<String>.forEachChar(func: (x: Int, y: Int, line: String, c: Char) -> Un
 
     }
 }
-
 fun List<String>.split(separator: String): List<List<String>> {
     val lists = arrayListOf<List<String>>()
 
