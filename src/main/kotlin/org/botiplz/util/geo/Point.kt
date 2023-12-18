@@ -1,5 +1,6 @@
 package org.botiplz.util.geo
 
+import java.nio.channels.Pipe
 import java.util.function.Consumer
 import kotlin.math.abs
 import kotlin.math.sign
@@ -55,6 +56,10 @@ class Point(val x: Int, val y: Int) {
         return Point(x + prevPoint.x, y + prevPoint.y)
     }
 
+    operator fun times(factor: Int): Point {
+        return Point(factor * x, factor * y)
+    }
+
     fun manhattanDistance(other: Point): Int {
         val distance = this - other
         return abs(distance.x) + abs(distance.y)
@@ -62,6 +67,10 @@ class Point(val x: Int, val y: Int) {
 
     fun direction(): Point {
         return Point(x.sign, y.sign)
+    }
+
+    fun flip(): Point {
+        return Point(-x, -y)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -96,6 +105,28 @@ class Point(val x: Int, val y: Int) {
             }
             consumer.accept(analysePoint)
         }
+
+        fun left(): Point {
+            return Point(-1, 0)
+        }
+
+        fun right(): Point {
+            return Point(1, 0)
+        }
+
+        fun up(): Point {
+            return Point(0, -1)
+        }
+
+        fun down(): Point {
+            return Point(0, 1)
+        }
+
+        fun zero(): Point {
+            return Point(0, 0)
+        }
+
+
     }
 
 }

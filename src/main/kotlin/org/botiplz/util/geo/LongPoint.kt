@@ -30,6 +30,10 @@ class LongPoint(val x: Long, val y: Long) {
         return LongPoint(x + prevPoint.x, y + prevPoint.y)
     }
 
+    operator fun times(factor: Long): LongPoint {
+        return LongPoint(factor * x, factor * y)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -60,6 +64,22 @@ class LongPoint(val x: Long, val y: Long) {
 
         fun bottomRight(vararg sensor: LongPoint): LongPoint {
             return LongPoint(sensor.maxOfOrNull { it.x }!!, sensor.maxOfOrNull { it.y }!!)
+        }
+
+        fun left(): LongPoint {
+            return LongPoint(-1, 0)
+        }
+
+        fun right(): LongPoint {
+            return LongPoint(1, 0)
+        }
+
+        fun up(): LongPoint {
+            return LongPoint(0, -1)
+        }
+
+        fun down(): LongPoint {
+            return LongPoint(0, 1)
         }
 
     }
