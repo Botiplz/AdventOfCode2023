@@ -7,3 +7,11 @@ fun Iterable<Int>.multiply(): Int {
     }
     return multi
 }
+
+fun Iterable<Long>.multiply(): Long {
+    var multi = 1L
+    for (element in this) {
+        multi *= element
+    }
+    return multi
+}
